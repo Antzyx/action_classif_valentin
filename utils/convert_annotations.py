@@ -1,7 +1,7 @@
 import csv
 import os
 import time
-
+import re
 from utils.convertion_functions import convert_form_to_type
 
 path_to_data = "..\\AMI\\amicorpus"
@@ -79,14 +79,16 @@ def convert_element(fetched_elements, mandatory, conversion_function_list):
 def get_annotations(conversion_function_list):
     mandatory = ("starttime", "endtime", "type")
     optional = ()
-    get_action("handGesture", mandatory, optional, conversion_function_list=conversion_function_list)
+    get_action("handGesture", mandatory, optional, conversion_function_list=[fuse_point_object,fuse_point_person])
     mandatory = ("starttime", "endtime", "type")
     optional = ("form",)
     get_action("headGesture", mandatory, optional, conversion_function_list=conversion_function_list)
     mandatory = ("starttime", "endtime", "type")
     optional = ()
-    get_action("movement", mandatory, optional, conversion_function_list=conversion_function_list)
-
+    get_action("movement", mandatory, optional, conversion_function_list=[fuse_stand])
+    mandatory = ("starttime", "endtime", "type")
+    optional = ()
+    get_action("focus", mandatory, optional, conversion_function_list=[fuse_focus_person,fuse_focus_object])
 
 if __name__ == '__main__':
     time_start = time.time()
